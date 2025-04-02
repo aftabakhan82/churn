@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+<div style="text-align: center;">
+  <h2>Sign Up</h2>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.username.label }} {{ form.username }}
+    {{ form.password.label }} {{ form.password }}
+    <br>
+    {{ form.submit }}
+</div>
+  </form>
+{% endblock %}

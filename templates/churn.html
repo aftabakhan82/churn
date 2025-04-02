@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Churn Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Customer Churn Prediction</h1>
+            <form id="predict-form" method="post">
+                <div class="field">
+                    <label class="label">Gender</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="gender">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Senior Citizen</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="SeniorCitizen">
+                                <option>0</option>
+                                <option>1</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Partner</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="Partner">
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Dependents</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="Dependents">
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Tenure</label>
+                    <div class="control">
+                        <input class="input" type="number" name="tenure" placeholder="Enter tenure" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Phone Service</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="PhoneService">
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Multiple Lines</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="MultipleLines">
+                                <option>No</option>
+                                <option>Yes</option>
+                                <option>No phone service</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Internet Service</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="InternetService">
+                                <option>DSL</option>
+                                <option>Fiber optic</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Online Security</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="OnlineSecurity">
+                                <option>No</option>
+                                <option>Yes</option>
+                                <option>No internet service</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more fields as needed -->
+                <div class="control">
+                    <button class="button is-primary" type="submit">Get Prediction</button>
+                </div>
+            </form>
+            <div id="result" class="notification is-info is-hidden"></div>
+        </div>
+    </section>
+    <script>
+        document.getElementById('predict-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = `Prediction: ${data.prediction}`;
+            resultDiv.classList.remove('is-hidden');
+        };
+    </script>
+</body>
+</html>
+{% endblock %}
