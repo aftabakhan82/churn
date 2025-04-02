@@ -4,5 +4,6 @@ Flask-Login
 Werkzeug
 joblib
 pandas
+scikit-learn
 Flask-WTF
 gunicorn
